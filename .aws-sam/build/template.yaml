@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: "prueba-app\nEsta es una prueba de una aplicacion serverless, si funciona\
+  \ se podr\xE1 automatizar el despliegue de aplicaciones\n"
+Globals:
+  Function:
+    Timeout: 5
+    MemorySize: 128
+Resources:
+  multiplyx2:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: go1.x
+      SamResourceId: multiplyx2
+    Properties:
+      CodeUri: multiplyx2
+      Handler: bootstrap
+      Runtime: provided.al2
+      Architectures:
+      - x86_64
+      Events:
+        CatchAll:
+          Type: HttpApi
+          Properties:
+            Path: /multiplyx2
+            Method: POST
+      Environment:
+        Variables:
+          NOMBRE: sami
